@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+#define MAX_ITEM 10 // Maksimal item yang bisa diinput
+
+struct Item {
+    char nama[50];
+    int jumlah;
+    long harga; // Menggunakan long untuk harga jutaan rupiah
+};
+
+// Fungsi untuk mencetak struk belanja
+void cetakStruk(struct Item items[], int jumlahItem) {
+    long totalHarga = 0;
+    printf("\n========== Struk Belanja ==========\n");
+    printf("No\tNama\t\tJumlah\tHarga\tTotal\n");
+    
+    // Loop untuk menampilkan setiap barang
+    for (int i = 0; i < jumlahItem; i++) {
+        long totalPerItem = items[i].harga * items[i].jumlah;
+        printf("%d\t%s\t%d\t%ld\t%ld\n", i + 1, items[i].nama, items[i].jumlah, items[i].harga, totalPerItem);
+        totalHarga += totalPerItem;
+    }
+    
+    // Tampilkan total harga keseluruhan
+    printf("\nTotal Harga: %ld\n", totalHarga);
+    printf("===================================\n");
+}
+
+int main() {
+    struct Item items[MAX_ITEM];
+    int jumlahItem;
+    
+    // Input jumlah item yang ingin dibeli
+    printf("Berapa item yang ingin dimasukkan (maksimal 10)? ");
+    scanf("%d", &jumlahItem);
+    
+    // Batasi input item maksimal 10
+    if (jumlahItem > MAX_ITEM) {
+        printf("Maksimal item yang bisa dimasukkan adalah 10.\n");
+        return 1;
+    }
+    
+    // Input nama, jumlah, dan harga untuk setiap item
+    for (int i = 0; i < jumlahItem; i++) {
+        printf("\nMasukkan nama barang ke-%d: ", i + 1);
+        scanf(" %[^\n]s", items[i].nama);
+        printf("Masukkan jumlah barang ke-%d: ", i + 1);
+        scanf("%d", &items[i].jumlah);
+        printf("Masukkan harga barang ke-%d: ", i + 1);
+        scanf("%ld", &items[i].harga);
+    }
+    
+    // Cetak struk belanja
+    cetakStruk(items, jumlahItem);
+    
+    return 0;
+}
